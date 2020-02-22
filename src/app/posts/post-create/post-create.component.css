@@ -1,7 +1,4 @@
-.first-class {
-    font-size: 10px;
-}
-
-.second-class {
-    font-size: 20px;
+mat-form-field,
+textarea {
+    width: 100%;
 }
