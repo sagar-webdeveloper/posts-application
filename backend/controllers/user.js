@@ -2,27 +2,51 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 const User = require("../models/user");
+const request = require("request");
+
 
 exports.createUser = (req, res, next) => {
-    bcrypt.hash(req.body.password, 10).then(hash => {
-        const user = new User({
-            email: req.body.email,
-            password: hash
-        });
-        user
-            .save()
-            .then(result => {
-                res.status(201).json({
-                    message: "User created!",
-                    result: result
-                });
-            })
-            .catch(err => {
-                res.status(500).json({
-                    message: "Invalid authentication credentials!"
-                });
+    if (req.body.captcha === undefined ||
+        req.body.captcha === '' ||
+        req.body.captcha === null) {
+        console.log("0");
+        return res.json({ "success": false, message: "Please select Captcha" });
+    }
+    const secretKey = '6LcQGOUUAAAAABjYojglDxJxcp5PBijzfyrWh4rJ';
+    const verifyUrl = `https://google.com/recaptcha/api/siteverify?secret=${secretKey}&response=
+        ${req.body.captcha}&remoteip=${req.connection.remoteAddress}`;
+
+    request(verifyUrl, (err, response, body) => {
+        body = JSON.parse(body);
+
+        if (body.success !== undefined && !body.success) {
+            return res.json({ "success": false, message: "Failed Captcha Veification!" });
+            console.log("1");
+        }
+        console.log("2", body);
+        bcrypt.hash(req.body.password, 10).then(hash => {
+            const user = new User({
+                email: req.body.email,
+                password: hash
             });
-    });
+            user
+                .save()
+                .then(result => {
+                    res.status(201).json({
+                        message: "User created!",
+                        result: result
+                    });
+                })
+                .catch(err => {
+                    res.status(500).json({
+                        message: "Invalid authentication credentials!"
+                    });
+                });
+        });
+
+    })
+
+
 }
 
 exports.userLogin = (req, res, next) => {

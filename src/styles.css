@@ -1,3 +1,20 @@
 /* You can add global styles to this file, and also import other style files */
 
-body { margin: 0; }
+body {
+    margin: 0;
+}
+
+mat-password-strength .mat-progress-bar-fill::after {
+    background-color: #4caf50;
+    margin-bottom: 100px;
+}
+
+
+/* .mat-password-field.mat-form-field.mat-focused .mat-form-field-label {
+    color: #4caf50;
+} */
+
+
+/* .mat-password-field.mat-form-field.mat-focused .mat-form-field-ripple {
+    background-color: #4caf50;
+} */

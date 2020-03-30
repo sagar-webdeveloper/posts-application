@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
-import { NgForm } from "@angular/forms";
+import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { Subscription } from "rxjs";
 
 import { AuthService } from "../auth.service";
@@ -10,6 +10,8 @@ import { AuthService } from "../auth.service";
 })
 export class LoginComponent implements OnInit, OnDestroy {
   isLoading = false;
+  form: FormGroup;
+  emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
   private authStatusSub: Subscription;
 
   constructor(public authService: AuthService) {}
@@ -20,14 +22,18 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.isLoading = false;
       }
     );
+    this.form = new FormGroup({
+      email: new FormControl(null, { validators: [Validators.required, Validators.pattern(this.emailPattern)]}),
+      password: new FormControl(null, { validators: [Validators.required]}),
+    });
   }
 
-  onLogin(form: NgForm) {
-    if (form.invalid) {
+  onLogin() {
+    if (this.form.invalid) {
       return;
     }
     this.isLoading = true;
-    this.authService.login(form.value.email, form.value.password);
+    this.authService.login(this.form.value.email, this.form.value.password);
   }
 
   ngOnDestroy() {

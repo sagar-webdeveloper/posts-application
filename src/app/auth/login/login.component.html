@@ -1,14 +1,19 @@
 <mat-card>
-  <mat-spinner *ngIf="isLoading"></mat-spinner>
-  <form (submit)="onLogin(loginForm)" #loginForm="ngForm" *ngIf="!isLoading">
-    <mat-form-field>
-      <input matInput name="email" ngModel type="email" placeholder="E-Mail" #emailInput="ngModel" required email>
-      <mat-error *ngIf="emailInput.invalid">Please enter a valid email.</mat-error>
-    </mat-form-field>
-    <mat-form-field>
-      <input type="password" name="password" ngModel matInput placeholder="Password" #passwordInput="ngModel" required>
-      <mat-error *ngIf="passwordInput.invalid">Please enter a valid password.</mat-error>
-    </mat-form-field>
-    <button mat-raised-button color="accent" type="submit" *ngIf="!isLoading">Login</button>
-  </form>
+    <mat-spinner *ngIf="isLoading"></mat-spinner>
+    <form [formGroup]="form" (submit)="onLogin()" *ngIf="!isLoading" autocomplete="false">
+        <mat-form-field>
+            <input matInput type="email" formControlName="email" placeholder="E-Mail">
+            <mat-error *ngIf="form.get('email').invalid">Please enter a valid email.</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput type="password" formControlName="password" placeholder="Password">
+            <mat-error *ngIf="form.get('password').invalid">Please enter a valid password.</mat-error>
+        </mat-form-field>
+        <button mat-raised-button color="accent" type="submit" *ngIf="!isLoading">Login</button>
+    </form>
 </mat-card>
+<div class="border-top pt-3">
+    <h4>
+        Don't Have An Account? <a class="ml-2" href="auth/signup">Sign Up</a>
+    </h4>
+</div>

@@ -1,7 +1,50 @@
 mat-form-field {
-  width: 100%;
+    width: 100%;
 }
 
 mat-spinner {
-  margin: auto;
+    margin: auto;
+}
+
+mat-password-strength .mat-progress-bar-fill::after {
+    background-color: #4caf50;
+}
+
+.mat-password-field.mat-form-field.mat-focused .mat-form-field-label {
+    color: #4caf50;
+}
+
+.mat-password-field.mat-form-field.mat-focused .mat-form-field-ripple {
+    background-color: #4caf50;
+}
+
+.mar-top-20 {
+    margin-top: 20px;
+}
+
+.text-muted {
+    color: #6c757d!important;
+}
+
+.border-top {
+    border-top: 1px solid #dee2e6!important;
+}
+
+.registration {
+    font-family: inherit;
+    text-align: center;
+    color: #3f51b5;
+}
+
+.signup {
+    background-color: #3f51b5;
+    color: white;
+}
+
+.captchaStyle {
+    margin-top: 20px;
+}
+
+.mar-bt-20 {
+    margin-bottom: 20px;
 }
