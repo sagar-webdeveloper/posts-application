@@ -20,9 +20,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.authService.autoAuthUser();
-    // this.errorSub = this.errorService.getErrorListener().subscribe(
-    //   message => this.hasError = message !== null
-    // );
+    
   }
 
   // ngOnDestroy() {

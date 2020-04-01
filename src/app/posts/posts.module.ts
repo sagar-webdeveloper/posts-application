@@ -6,6 +6,7 @@ import { RouterModule } from "@angular/router";
 import { PostCreateComponent } from "./post-create/post-create.component";
 import { PostListComponent } from "./post-list/post-list.component";
 import { AngularMaterialModule } from "../angular-material.module";
+import { MatCarouselModule } from '@ngmodule/material-carousel';
 
 @NgModule({
   declarations: [PostCreateComponent, PostListComponent],
@@ -13,7 +14,8 @@ import { AngularMaterialModule } from "../angular-material.module";
     CommonModule,
     ReactiveFormsModule,
     AngularMaterialModule,
-    RouterModule
+    RouterModule,
+    MatCarouselModule.forRoot(),
   ]
 })
 export class PostsModule {}
