@@ -1,7 +1,10 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { NgModule } from "@angular/core";
+import { MatPasswordStrengthModule } from '@angular-material-extensions/password-strength';
+//import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
+
 
 import { AppComponent } from "./app.component";
 import { HeaderComponent } from "./header/header.component";
@@ -11,7 +14,7 @@ import { ErrorInterceptor } from "./error-interceptor";
 import { ErrorComponent } from "./error/error.component";
 import { AngularMaterialModule } from "./angular-material.module";
 import { PostsModule } from "./posts/posts.module";
-import { MatPasswordStrengthModule } from '@angular-material-extensions/password-strength';
+
 
 @NgModule({
   declarations: [
@@ -26,7 +29,8 @@ import { MatPasswordStrengthModule } from '@angular-material-extensions/password
     HttpClientModule,
     AngularMaterialModule,
     PostsModule,
-    MatPasswordStrengthModule.forRoot()
+    MatPasswordStrengthModule.forRoot(),
+    
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
