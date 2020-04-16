@@ -1,28 +1,92 @@
-<!-- <mat-carousel timings="250ms ease-in" [autoplay]="true" interval="5000" color="primary" maxWidth="auto" proportion="25" slides="5" [loop]="true" [hideArrows]="false" [hideIndicators]="false" [useKeyboard]="true" [useMouseWheel]="false" orientation="ltr">
-    <mat-carousel-slide #matCarouselSlide *ngFor="let post of posts; let i = index" [image]="post.imagePath" overlayColor="#00000040" [hideOverlay]="false">
-    </mat-carousel-slide>
-</mat-carousel> -->
+<div class="container">
+    <mat-spinner *ngIf="isLoading"></mat-spinner>
+    <section class="my-col" *ngIf="posts.length > 0 && !isLoading">
+        <div class="row">
+            <div class="col-sm-8 p-2 my-3">
+                <div class="row">
+                    <div class="col-sm-10 p-3 my-3 ml-auto mr-3 border" *ngFor="let post of posts">
+                        <div class="card">
+                            <div class="card-body">
+                                <h6 class="card-title">{{ post.title }}</h6>
+                                <p class="card-text">{{ post.content }}</p>
+                            </div>
+                            <img class="card-img-bottom" [src]="post.imagePath" alt="Card image" style="width:100%; height:auto;">
+                        </div>
+                        <div>
+                            <span><i class="fa fa-comments"></i>{{post.comments.length}}</span>
+                        </div>
+                        <div *ngIf="userIsAuthenticated && userId === post.creator">
+                            <a mat-button color="primary" [routerLink]="['/edit', post.id]">EDIT</a>
+                            <button mat-button color="warn" (click)="onDelete(post.id)">DELETE</button>
+                        </div>
+
+                        <div class="row bootstrap snippets">
+                            <div class="col-sm-12">
+                                <div class="comment-wrapper">
+                                    <div class="panel panel-info">
+                                        <div class="panel-heading">
+                                            Comment panel
+                                        </div>
+                                        <div class="panel-body">
+                                            <textarea class="form-control" placeholder="write a comment..." rows="3"></textarea>
+                                            <br>
+                                            <button type="button" class="btn btn-info pull-right">Post</button>
+                                            <div class="clearfix"></div>
+                                            <hr>
+                                            <ul class="media-list" *ngIf="post.comments.length>0">
+                                                <li class="media" *ngFor="let comment of post.comments">
+                                                    <a href="#" class="pull-left">
+                                                        <img src="https://bootdey.com/img/Content/user_1.jpg" alt="" class="img-circle">
+                                                    </a>
+                                                    <div class="media-body">
+                                                        <span class="text-muted pull-right">
+                                                            <small class="text-muted">{{ comment.date}}</small>
+                                                        </span>
+                                                        <strong class="text-success">@{{ comment.commentBy}}</strong>
+                                                        <p>
+                                                            {{ comment.message}} <a href="#">#consecteturadipiscing </a>.
+                                                        </p>
+                                                    </div>
+                                                </li>
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
 
 
-<!-- <main> -->
-<!-- <h1>comment</h1> -->
-<mat-spinner *ngIf="isLoading"></mat-spinner>
-<mat-accordion multi="true" *ngIf="posts.length > 0 && !isLoading">
-    <mat-expansion-panel *ngFor="let post of posts">
-        <mat-expansion-panel-header>
-            {{ post.title }}
-        </mat-expansion-panel-header>
-        <div class="post-image">
-            <img [src]="post.imagePath" [alt]="post.title">
+
+
+
+
+
+
+
+
+                        <div class="p-2 border" *ngIf="userIsAuthenticated">
+                            <input type="text" class="form-control" name="comment" [(ngModel)]="comment" placeholder="addComment">
+                            <button mat-button color="primary" (click)="onComment(post.id)">Post</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3 p-2 my-3 ml-3 mr-3 border" *ngIf="userIsAuthenticated">
+                <div class="p-3">
+                    <h6>Welcome, {{userName}}</h6>
+                    <div class="text-center">
+                        <a routerLink="/create" class="btn btn-primary">Add New Post</a>
+                    </div>
+                </div>
+            </div>
         </div>
-        <p>{{ post.content }}</p>
-        <mat-action-row *ngIf="userIsAuthenticated && userId === post.creator">
-            <a mat-button color="primary" [routerLink]="['/edit', post.id]">EDIT</a>
-            <button mat-button color="warn" (click)="onDelete(post.id)">DELETE</button>
-        </mat-action-row>
-    </mat-expansion-panel>
-</mat-accordion>
+    </section>
+    <section class="my-col">
+
+    </section>
+
+</div>
 <mat-paginator [length]="totalPosts" [pageSize]="postsPerPage" [pageSizeOptions]="pageSizeOptions" (page)="onChangedPage($event)" *ngIf="posts.length > 0"></mat-paginator>
 <p class="info-text mat-body-1" *ngIf="posts.length <= 0 && !isLoading">No posts added yet!</p>
-
-<!-- </main> -->

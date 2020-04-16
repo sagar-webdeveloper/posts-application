@@ -31,7 +31,8 @@ export class PostsService {
                 content: post.content,
                 id: post._id,
                 imagePath: post.imagePath,
-                creator: post.creator
+                creator: post.creator,
+                comments:post.comments
               };
             }),
             maxPosts: postData.maxPosts
@@ -98,6 +99,15 @@ export class PostsService {
       .subscribe(response => {
         this.router.navigate(["/"]);
       });
+  }
+
+  addcomments(id: string, comment:string, likes:any) {
+    let commentData={
+      id:id,
+      comment:comment,
+      likes:likes
+    }
+   return this.http.post(BACKEND_URL + environment.addComment + id,commentData)
   }
 
   deletePost(postId: string) {

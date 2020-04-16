@@ -1,20 +1,32 @@
-<mat-toolbar color="primary">
-  <span>
-    <a routerLink="/">MyMessages</a>
-  </span>
-  <span class="spacer"></span>
-  <ul>
-    <li *ngIf="userIsAuthenticated">
-      <a mat-button routerLink="/create" routerLinkActive="mat-accent">New Post</a>
-    </li>
-    <li *ngIf="!userIsAuthenticated">
-      <a mat-button routerLink="/auth/login" routerLinkActive="mat-accent">Login</a>
-    </li>
-    <li *ngIf="!userIsAuthenticated">
-      <a mat-button routerLink="/auth/signup" routerLinkActive="mat-accent">Signup</a>
-    </li>
-    <li *ngIf="userIsAuthenticated">
-      <button mat-button (click)="onLogout()">Logout</button>
-    </li>
-  </ul>
-</mat-toolbar>
+<header>
+    <div class="container-fluid border">
+        <nav class="container navbar navbar-expand-sm bg-light">
+            <a class="navbar-brand" href="index.html">
+                <img src="../../assets/logo.png" class="" alt="" />
+            </a>
+            <ul class="navbar-nav">
+                <li class="nav-item" *ngIf="userIsAuthenticated">
+                    <a mat-button routerLink="/create" routerLinkActive="mat-accent">View Profile</a>
+                </li>
+                <li class="nav-item" *ngIf="userIsAuthenticated">
+                    <a mat-button routerLink="/create" routerLinkActive="mat-accent">Raise a Request</a>
+                </li>
+                <li class="nav-item" *ngIf="userIsAuthenticated">
+                    <a mat-button routerLink="/create" routerLinkActive="mat-accent">Share a Bit</a>
+                </li>
+                <li class="nav-item">
+                    <a mat-button routerLink="/auth/login" routerLinkActive="mat-accent">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a mat-button routerLink="/auth/signup" routerLinkActive="mat-accent">Signup</a>
+                </li>
+            </ul>
+            <span class="spacer"></span>
+            <ul>
+                <li *ngIf="userIsAuthenticated">
+                    <button mat-button (click)="onLogout()">Logout</button>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>

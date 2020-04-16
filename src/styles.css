@@ -2,6 +2,7 @@
 
 body {
     margin: 0;
+    background-color: #faf3f3;
 }
 
 mat-password-strength .mat-progress-bar-fill::after {

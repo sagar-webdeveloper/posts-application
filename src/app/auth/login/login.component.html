@@ -1,19 +1,25 @@
-<mat-card>
+<div class="container">
     <mat-spinner *ngIf="isLoading"></mat-spinner>
-    <form [formGroup]="form" (submit)="onLogin()" *ngIf="!isLoading" autocomplete="false">
-        <mat-form-field>
-            <input matInput type="email" formControlName="email" placeholder="E-Mail">
-            <mat-error *ngIf="form.get('email').invalid">Please enter a valid email.</mat-error>
-        </mat-form-field>
-        <mat-form-field>
-            <input matInput type="password" formControlName="password" placeholder="Password">
-            <mat-error *ngIf="form.get('password').invalid">Please enter a valid password.</mat-error>
-        </mat-form-field>
-        <button mat-raised-button color="accent" type="submit" *ngIf="!isLoading">Login</button>
-    </form>
-</mat-card>
-<div class="border-top pt-3">
-    <h4>
-        Don't Have An Account? <a class="ml-2" href="auth/signup">Sign Up</a>
-    </h4>
+    <section class="my-col" *ngIf="!isLoading">
+        <h2 class="text-center p-3">Login</h2>
+        <div class="row">
+            <div class="col-sm-4 p-4 my-3 ml-auto mr-auto border">
+                <form [formGroup]="form" (submit)="onLogin()" autocomplete="false">
+                    <mat-form-field>
+                        <input matInput type="email" formControlName="email" placeholder="E-Mail">
+                        <mat-error *ngIf="form.get('email').invalid">Please enter a valid email.</mat-error>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input matInput type="password" formControlName="password" placeholder="Password">
+                        <mat-error *ngIf="form.get('password').invalid">Please enter a valid password.</mat-error>
+                    </mat-form-field>
+                    <button class="btn btn-primary text-center" *ngIf="!isLoading">Login</button>
+                </form>
+
+                <div class="p-4 my-3 text-center border">
+                    Don't have an account? <a href="auth/signup">Sign up</a>
+                </div>
+            </div>
+        </div>
+    </section>
 </div>

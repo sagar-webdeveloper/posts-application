@@ -1,35 +1,39 @@
-<mat-card>
-    <h3 class="registration">
-        User Registration
-    </h3>
+<div class="container">
     <mat-spinner *ngIf="isLoading"></mat-spinner>
-    <form [formGroup]="form" (submit)="onSignup()" *ngIf="!isLoading" autocomplete="rutjfkde">
-        <mat-form-field>
-            <mat-label>Email</mat-label>
-            <input matInput type="text" formControlName="email" placeholder="E-Mail" autocomplete="rutjfkde">
-            <mat-error *ngIf="form.get('email').invalid">Please enter a valid email.</mat-error>
-        </mat-form-field>
+    <section class="my-col" *ngIf="!isLoading">
+        <h2 class="text-center p-3">Sign Up</h2>
+        <div class="row">
+            <div class="col-sm-4 p-4 my-3 ml-auto mr-auto border">
+                <form [formGroup]="form" (submit)="onSignup()" *ngIf="!isLoading" autocomplete="rutjfkde">
+                    <mat-form-field>
+                        <mat-label>Email</mat-label>
+                        <input matInput type="text" formControlName="email" placeholder="E-Mail" autocomplete="rutjfkde">
+                        <mat-error *ngIf="form.get('email').invalid">Please enter a valid email.</mat-error>
+                    </mat-form-field>
 
-        <mat-slide-toggle formControlName="enableDetails" color="primary">Show Password Details</mat-slide-toggle>
-        <mat-form-field class="mat-password-field">
-            <mat-label>Password</mat-label>
-            <mat-pass-toggle-visibility #toggle matSuffix></mat-pass-toggle-visibility>
-            <input matInput [type]="toggle.type" formControlName="password" placeholder="Password" autocomplete="off">
-            <mat-error *ngIf="form.get('password').invalid">Please enter a valid password.</mat-error>
-        </mat-form-field>
+                    <mat-slide-toggle formControlName="enableDetails" color="primary">Show Password Details</mat-slide-toggle>
+                    <mat-form-field class="mat-password-field">
+                        <mat-label>Password</mat-label>
+                        <mat-pass-toggle-visibility #toggle matSuffix></mat-pass-toggle-visibility>
+                        <input matInput [type]="toggle.type" formControlName="password" placeholder="Password" autocomplete="off">
+                        <mat-error *ngIf="form.get('password').invalid">Please enter a valid password.</mat-error>
+                    </mat-form-field>
 
-        <mat-password-strength #passwordComponent [password]="form.value.password" class="mar-top-20 mar-bt-20">
-        </mat-password-strength>
-        <div class="captchaStyle">
-            <re-captcha (resolved)="resolved($event)" siteKey="6LcQGOUUAAAAAKKYlmquk7vIPBJQcvtwOf0t5gtt"></re-captcha>
+                    <mat-password-strength #passwordComponent [password]="form.value.password" class="mar-top-20 mar-bt-20">
+                    </mat-password-strength>
+                    <div class="captchaStyle">
+                        <re-captcha (resolved)="resolved($event)" siteKey="6LcQGOUUAAAAAKKYlmquk7vIPBJQcvtwOf0t5gtt"></re-captcha>
+                    </div>
+                    <div class="text-center  mar-top-20">
+                        <button type="submit" *ngIf="!isLoading" class="btn btn-primary text-center">Signup</button>
+                    </div>
+                    <mat-password-strength-info [passwordComponent]="passwordComponent" *ngIf="form.value.enableDetails">
+                    </mat-password-strength-info>
+                </form>
+                <div class="p-4 my-3 text-center border">
+                    Don't have an account? <a href="auth/signup">Sign up</a>
+                </div>
+            </div>
         </div>
-        <button mat-raised-button type="submit" *ngIf="!isLoading" class="mar-top-20 signup">Signup</button>
-        <mat-password-strength-info [passwordComponent]="passwordComponent" *ngIf="form.value.enableDetails">
-        </mat-password-strength-info>
-    </form>
-</mat-card>
-<div class="border-top pt-3">
-    <h4>
-        Already Have An Account? <a class="ml-2" href="auth/login">Sign In</a>
-    </h4>
+    </section>
 </div>

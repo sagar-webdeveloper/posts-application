@@ -11,6 +11,8 @@ router.post("", checkAuth, extractFile, PostController.createPost);
 
 router.put("/:id", checkAuth, extractFile, PostController.updatePost);
 
+router.post("/:id", checkAuth, PostController.addComment);
+
 router.get("", PostController.getPosts);
 
 router.get("/:id", PostController.getPost);
