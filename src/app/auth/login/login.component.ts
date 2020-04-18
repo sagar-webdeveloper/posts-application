@@ -25,15 +25,23 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.form = new FormGroup({
       email: new FormControl(null, { validators: [Validators.required, Validators.pattern(this.emailPattern)]}),
       password: new FormControl(null, { validators: [Validators.required]}),
+      captcha: new FormControl('', { validators: [Validators.required]}),
     });
   }
+
+  resolved(captchaResponse: string) {
+    this.form.patchValue({
+      captcha:captchaResponse
+    })
+    console.log("captchaResponse is",captchaResponse);
+}
 
   onLogin() {
     if (this.form.invalid) {
       return;
     }
     this.isLoading = true;
-    this.authService.login(this.form.value.email, this.form.value.password);
+    this.authService.login(this.form.value.email, this.form.value.password,this.form.value.captcha);
   }
 
   ngOnDestroy() {

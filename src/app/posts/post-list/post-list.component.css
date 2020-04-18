@@ -43,3 +43,22 @@ main {
     border-bottom: 1px dashed #efefef;
     margin-bottom: 25px;
 }
+
+.cmt-user {
+    font-size: 25px;
+    /* padding-right: 8px; */
+    padding: 5px;
+}
+
+.padding-15 {
+    padding: 15px;
+}
+
+.card-design {
+    border: 1px solid #dddfe2;
+    border-radius: 3px;
+}
+
+.bg-white {
+    background: white;
+}

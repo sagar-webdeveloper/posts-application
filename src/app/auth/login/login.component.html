@@ -13,7 +13,10 @@
                         <input matInput type="password" formControlName="password" placeholder="Password">
                         <mat-error *ngIf="form.get('password').invalid">Please enter a valid password.</mat-error>
                     </mat-form-field>
-                    <button class="btn btn-primary text-center" *ngIf="!isLoading">Login</button>
+                    <div class="captchaStyle">
+                        <re-captcha (resolved)="resolved($event)" siteKey="6LcQGOUUAAAAAKKYlmquk7vIPBJQcvtwOf0t5gtt"></re-captcha>
+                    </div>
+                    <button class="btn btn-primary text-center captchaStyle" *ngIf="!isLoading">Login</button>
                 </form>
 
                 <div class="p-4 my-3 text-center border">

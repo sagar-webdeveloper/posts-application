@@ -41,10 +41,6 @@ mat-password-strength .mat-progress-bar-fill::after {
     color: white;
 }
 
-.captchaStyle {
-    margin-top: 20px;
-}
-
 .mar-bt-20 {
     margin-bottom: 20px;
 }

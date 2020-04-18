@@ -15,7 +15,7 @@
                     <a mat-button routerLink="/create" routerLinkActive="mat-accent">Share a Bit</a>
                 </li>
                 <li class="nav-item">
-                    <a mat-button routerLink="/auth/login" routerLinkActive="mat-accent">Login</a>
+                    <a mat-button routerLink="/auth/login" routerLinkActive="mat-accent" *ngIf="!userIsAuthenticated">Login</a>
                 </li>
                 <li class="nav-item">
                     <a mat-button routerLink="/auth/signup" routerLinkActive="mat-accent">Signup</a>

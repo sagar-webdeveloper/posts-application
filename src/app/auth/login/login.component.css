@@ -1,7 +1,11 @@
 mat-form-field {
-  width: 100%;
+    width: 100%;
 }
 
 mat-spinner {
-  margin: auto;
+    margin: auto;
+}
+
+.captchaStyle {
+    margin-top: 20px;
 }

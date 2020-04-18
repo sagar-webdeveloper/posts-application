@@ -23,9 +23,9 @@ export class PostListComponent implements OnInit, OnDestroy {
   posts: Post[] = [];
   isLoading = false;
   totalPosts = 0;
-  postsPerPage = 2;
+  postsPerPage = 8;
   currentPage = 1;
-  pageSizeOptions = [1, 2, 5, 10];
+  pageSizeOptions = [1, 10, 11, 12];
   userIsAuthenticated = false;
   userId: string;
   comment:any;
@@ -44,8 +44,7 @@ export class PostListComponent implements OnInit, OnDestroy {
     let token = localStorage.getItem("token");
    if(token!=null && token !='' && token !=undefined){
     this.decodedToken = helper.decodeToken(token);
-    let nameMatch = this.decodedToken.email.match(/^([^@]*)@/);
-    this.userName = nameMatch ? nameMatch[1] : null;
+    this.userName = this.decodedToken.fullname;
       }
     this.isLoading = true;
     this.postsService.getPosts(this.postsPerPage, this.currentPage);

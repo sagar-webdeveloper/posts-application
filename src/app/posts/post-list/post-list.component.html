@@ -1,92 +1,110 @@
 <div class="container">
     <mat-spinner *ngIf="isLoading"></mat-spinner>
-    <section class="my-col" *ngIf="posts.length > 0 && !isLoading">
+    <section class="my-col" *ngIf="posts.length > 0 && !isLoading && userIsAuthenticated">
         <div class="row">
+            <div class="col-sm-12 p-2 my-3 ml-3 mr-3 card-design bg-white">
+                <div class="row">
+                    <div class="col-sm-2">
+                        <img src="../../../assets/profile.jpg" class="img-thumbnail mx-auto d-block img-fluid" alt="" />
+                    </div>
+                    <div class="col-sm-9">
+                        <h3>Welcome, <span style="color:blue">{{userName}}</span></h3>
+                        <p>
+                            <span class="pr-5"><b>Share a Bit : </b><span>45</span></span>
+                            <span><b>Raise a Request : </b><span>34</span></span>
+
+                        </p>
+                    </div>
+                </div>
+            </div>
             <div class="col-sm-8 p-2 my-3">
                 <div class="row">
-                    <div class="col-sm-10 p-3 my-3 ml-auto mr-3 border" *ngFor="let post of posts">
-                        <div class="card">
+                    <div class="col-sm-8 p-3 my-3 ml-auto mr-3" *ngFor="let post of posts">
+                        <div class="card card-design">
                             <div class="card-body">
                                 <h6 class="card-title">{{ post.title }}</h6>
                                 <p class="card-text">{{ post.content }}</p>
                             </div>
                             <img class="card-img-bottom" [src]="post.imagePath" alt="Card image" style="width:100%; height:auto;">
-                        </div>
-                        <div>
-                            <span><i class="fa fa-comments"></i>{{post.comments.length}}</span>
-                        </div>
-                        <div *ngIf="userIsAuthenticated && userId === post.creator">
-                            <a mat-button color="primary" [routerLink]="['/edit', post.id]">EDIT</a>
-                            <button mat-button color="warn" (click)="onDelete(post.id)">DELETE</button>
-                        </div>
+                            <div class="padding-15">
+                                <span><i class="fa fa-comments"></i>{{post.comments.length}}</span>
+                            </div>
+                            <div *ngIf="userIsAuthenticated && userId === post.creator" class="padding-15">
+                                <a mat-button color="primary" [routerLink]="['/edit', post.id]">EDIT</a>
+                                <button mat-button color="warn" (click)="onDelete(post.id)">DELETE</button>
+                            </div>
 
-                        <div class="row bootstrap snippets">
-                            <div class="col-sm-12">
-                                <div class="comment-wrapper">
-                                    <div class="panel panel-info">
-                                        <div class="panel-heading">
-                                            Comment panel
-                                        </div>
-                                        <div class="panel-body">
-                                            <textarea class="form-control" placeholder="write a comment..." rows="3"></textarea>
-                                            <br>
-                                            <button type="button" class="btn btn-info pull-right">Post</button>
-                                            <div class="clearfix"></div>
-                                            <hr>
-                                            <ul class="media-list" *ngIf="post.comments.length>0">
-                                                <li class="media" *ngFor="let comment of post.comments">
-                                                    <a href="#" class="pull-left">
-                                                        <img src="https://bootdey.com/img/Content/user_1.jpg" alt="" class="img-circle">
-                                                    </a>
-                                                    <div class="media-body">
-                                                        <span class="text-muted pull-right">
+                            <div class="row bootstrap snippets padding-15" *ngIf="userIsAuthenticated">
+                                <div class="col-sm-12">
+                                    <hr>
+                                    <ul class="media-list" *ngIf="post.comments.length>0">
+                                        <li class="media" *ngFor="let comment of post.comments">
+                                            <a href="#" class="pull-left">
+                                                <i class="fa fa-user cmt-user"></i>
+                                            </a>
+                                            <div class="media-body">
+                                                <span class="text-muted pull-right">
                                                             <small class="text-muted">{{ comment.date}}</small>
                                                         </span>
-                                                        <strong class="text-success">@{{ comment.commentBy}}</strong>
-                                                        <p>
-                                                            {{ comment.message}} <a href="#">#consecteturadipiscing </a>.
-                                                        </p>
-                                                    </div>
-                                                </li>
+                                                <strong class="text-success">@{{ comment.commentBy}}</strong>
+                                                <p>
+                                                    {{ comment.message}}.
+                                                </p>
+                                            </div>
+                                        </li>
 
-                                            </ul>
+                                    </ul>
+                                    <div class="comment-wrapper">
+                                        <div class="panel panel-info">
+                                            <div class="panel-heading">
+                                                Comment panel
+                                            </div>
+                                            <div class="panel-body">
+                                                <textarea class="form-control" name="comment" [(ngModel)]="comment" placeholder="write a comment..." rows="3"></textarea>
+                                                <br>
+                                                <button type="button" class="btn btn-info pull-right" (click)="onComment(post.id)">Post</button>
+                                                <div class="clearfix"></div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
-
-
-
-
-
-
-
-
-
-
-                        <div class="p-2 border" *ngIf="userIsAuthenticated">
-                            <input type="text" class="form-control" name="comment" [(ngModel)]="comment" placeholder="addComment">
-                            <button mat-button color="primary" (click)="onComment(post.id)">Post</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-3 p-2 my-3 ml-3 mr-3 border" *ngIf="userIsAuthenticated">
-                <div class="p-3">
-                    <h6>Welcome, {{userName}}</h6>
-                    <div class="text-center">
-                        <a routerLink="/create" class="btn btn-primary">Add New Post</a>
+                        <hr>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    <section class="my-col">
 
+
+    <section class="my-col" *ngIf="posts.length > 0 && !isLoading && !userIsAuthenticated">
+        <div class="col-sm-12 p-3 my-3 ml-3 mr-3 border">
+            <div class="row">
+                <div class="col-sm-3" *ngFor="let post of posts">
+                    <div class="card">
+                        <img class="card-img-top" [src]="post.imagePath" alt="Card image" style="width:100%">
+                        <hr class="my-1">
+                        <div class="clearfix">
+                            <div class="pl-3 pr-3 float-left">
+                                <span><i class="fa fa-comments"></i></span>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h4 class="card-title">{{ post.title }}</h4>
+                            <p class="card-text">{{ post.content }}</p>
+                            <a routerLink="/auth/login" class="btn btn-primary stretched-link">View Comments</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 
+
+    <section class="my-col">
+    </section>
 </div>
+
 <mat-paginator [length]="totalPosts" [pageSize]="postsPerPage" [pageSizeOptions]="pageSizeOptions" (page)="onChangedPage($event)" *ngIf="posts.length > 0"></mat-paginator>
 <p class="info-text mat-body-1" *ngIf="posts.length <= 0 && !isLoading">No posts added yet!</p>
