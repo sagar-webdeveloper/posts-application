@@ -88,6 +88,12 @@ export class PostCreateComponent implements OnInit, OnDestroy {
       }
   }
 
+  omit_number(event) {
+    var k;
+    k = event.charCode;  //         key = event.keyCode;  (Both can be used)
+    return((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8   || (k >= 48 && k <= 57))
+}
+
   onImagePicked(event: Event) {
     const file = (event.target as HTMLInputElement).files[0];
     this.form.patchValue({ image: file });

@@ -23,13 +23,13 @@
                     </div>
                     <div class="form-group">
                         <mat-form-field>
-                            <input matInput type="text" formControlName="title" placeholder="Post Title">
+                            <input matInput type="text" (keypress)="omit_number($event)" formControlName="title" placeholder="Post Title">
                             <mat-error *ngIf="form.get('title').invalid">Please enter a post title.</mat-error>
                         </mat-form-field>
                     </div>
                     <div class="form-group">
                         <mat-form-field>
-                            <textarea matInput rows="4" formControlName="content" placeholder="Post details with contact"></textarea>
+                            <textarea matInput rows="4" (keypress)="omit_number($event)" formControlName="content" placeholder="Post details with contact"></textarea>
                             <mat-error *ngIf="form.get('content').invalid">Please enter details</mat-error>
                         </mat-form-field>
                     </div>
