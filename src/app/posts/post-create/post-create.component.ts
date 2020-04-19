@@ -69,8 +69,10 @@ export class PostCreateComponent implements OnInit, OnDestroy {
           this.form.setValue({
             title: this.post.title,
             content: this.post.content,
-            image: this.post.imagePath
+            image: this.post.imagePath,
+            postType:this.post.postType
           });
+          this.imagePreview=this.post.imagePath;
         });
       } else {
         this.mode = "create";

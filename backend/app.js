@@ -12,13 +12,13 @@ mongoose
     .connect(
         "mongodb+srv://sagar:" +
         process.env.MONGO_ATLAS_PW +
-        "@cluster0-tkwya.mongodb.net/test?retryWrites=true&w=majority"
+        "@cluster0-tkwya.mongodb.net/doyour-bit?retryWrites=true&w=majority"
     )
     .then(() => {
         console.log("Connected to database!");
     })
-    .catch(() => {
-        console.log("Connection failed!");
+    .catch((err) => {
+        console.log("Connection failed!", err);
     });
 
 app.use(bodyParser.json());

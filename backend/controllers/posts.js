@@ -13,7 +13,7 @@ exports.createPost = (req, res, next) => {
         content: req.body.content,
         imagePath: url + "/images/" + req.file.filename,
         creator: req.userData.userId,
-        postType: req.body.requestType,
+        postType: req.body.postType,
         postBy: req.body.fullname,
         postedTime: dateTime
 
@@ -30,6 +30,7 @@ exports.createPost = (req, res, next) => {
             });
         })
         .catch(error => {
+            console.log(error);
             res.status(500).json({
                 message: "Creating a post failed!"
             });
@@ -37,6 +38,10 @@ exports.createPost = (req, res, next) => {
 };
 
 exports.updatePost = (req, res, next) => {
+    let today = new Date();
+    let date = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+    let time = today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
+    let dateTime = time + ' ' + date;
     // console.log("hello");
     let imagePath = req.body.imagePath;
     if (req.file) {
@@ -48,7 +53,11 @@ exports.updatePost = (req, res, next) => {
         title: req.body.title,
         content: req.body.content,
         imagePath: imagePath,
-        creator: req.userData.userId
+        creator: req.userData.userId,
+        postType: req.body.postType,
+        postBy: req.body.fullname,
+        postedTime: dateTime
+
     });
     console.log("user data", req.userData);
     Post.update({ _id: req.params.id, creator: req.userData.userId }, {
@@ -56,7 +65,10 @@ exports.updatePost = (req, res, next) => {
                 title: req.body.title,
                 content: req.body.content,
                 imagePath: imagePath,
-                creator: req.userData.userId
+                creator: req.userData.userId,
+                postType: req.body.postType,
+                postBy: req.body.fullname,
+                postedTime: dateTime
             }
         })
         .then(result => {
