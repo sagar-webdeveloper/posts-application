@@ -23,6 +23,7 @@ export class PostCreateComponent implements OnInit, OnDestroy {
   imagePreview: string;
   userName:string;
   requestList:string[]=["Share a Bit","Raise a Request"];
+  inputPattern='^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$';
 
 
   private mode = "create";
@@ -88,10 +89,17 @@ export class PostCreateComponent implements OnInit, OnDestroy {
       }
   }
 
-  omit_number(event) {
-    var k;
-    k = event.charCode;  //         key = event.keyCode;  (Both can be used)
-    return((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8   || (k >= 48 && k <= 57))
+  omit_number(e) {
+    var allowedCode = [8, 13, 32, 44, 45, 46, 95,187];
+    var charCode = (e.charCode) ? e.charCode : ((e.keyCode) ? e.keyCode :
+        ((e.which) ? e.which : 0));
+     if (charCode > 31 && (charCode < 64 || charCode > 90) &&
+      (charCode < 97 || charCode > 122) &&
+      (charCode < 48 || charCode > 57) &&
+      (allowedCode.indexOf(charCode) == -1)) {
+      e.preventDefault();  
+      return false;
+     }
 }
 
   onImagePicked(event: Event) {
