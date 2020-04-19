@@ -1,38 +1,37 @@
 <div class="container">
     <mat-spinner *ngIf="isLoading"></mat-spinner>
+    <section *ngIf="!userIsAuthenticated">
+        <div class="row">
+            <div class="col-sm-12 p-2 ml-3 card-design bg-white">
+                <h4 class="p-15 text-center" style="padding-top: 5px;">Due to COVID-19, situation calls for Statutory help, Contribute to the needy and raise request for your needs </h4>
+            </div>
+        </div>
+    </section>
     <section class="my-col" *ngIf="posts.length > 0 && !isLoading && userIsAuthenticated">
         <div class="row">
-            <div class="col-sm-12 p-2 my-3 ml-3 mr-3 card-design bg-white">
+            <div class="col-sm-10">
                 <div class="row">
-                    <div class="col-sm-2">
-                        <img src="../../../assets/profile.jpg" class="img-thumbnail mx-auto d-block img-fluid" alt="" />
-                    </div>
-                    <div class="col-sm-9">
-                        <h3>Welcome, <span style="color:blue">{{userName}}</span></h3>
-                        <p>
-                            <span class="pr-5"><b>Share a Bit : </b><span>45</span></span>
-                            <span><b>Raise a Request : </b><span>34</span></span>
-
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-8 p-2 my-3">
-                <div class="row">
-                    <div class="col-sm-8 p-3 my-3 ml-auto mr-3" *ngFor="let post of posts">
+                    <div class="col-sm-10 ml-auto mr-3 mar-t-20" *ngFor="let post of posts">
                         <div class="card card-design">
                             <div class="card-body">
-                                <h6 class="card-title">{{ post.title }}</h6>
-                                <p class="card-text">{{ post.content }}</p>
+                                <h5><i class="fa fa-user cmt-user"></i> {{post.postBy}}</h5>
+                                <span class="text-muted pull-right">
+                                    <small class="text-muted">Posted @{{post.postedTime}}</small>
+                                </span>
+                                <h6 class="card-title">#{{post.postType}}</h6>
+                                <p class="card-text">{{ post.title }}</p>
+                                <span class="card-text">{{ post.content }}</span>
                             </div>
                             <img class="card-img-bottom" [src]="post.imagePath" alt="Card image" style="width:100%; height:auto;">
-                            <div class="padding-15">
-                                <span><i class="fa fa-comments"></i>{{post.comments.length}}</span>
+
+                            <div>
+                                <span style="padding-left: 5px;"><i class="fa fa-comments"></i>  {{post.comments.length}} Comments</span>
+                                <span *ngIf="userIsAuthenticated && userId === post.creator">
+                                    <a mat-button color="primary" [routerLink]="['/edit', post.id]" class="pull-right">EDIT</a>
+                                    <button class="pull-right" mat-button color="warn" (click)="onDelete(post.id)">DELETE</button>
+                                </span>
                             </div>
-                            <div *ngIf="userIsAuthenticated && userId === post.creator" class="padding-15">
-                                <a mat-button color="primary" [routerLink]="['/edit', post.id]">EDIT</a>
-                                <button mat-button color="warn" (click)="onDelete(post.id)">DELETE</button>
-                            </div>
+
 
                             <div class="row bootstrap snippets padding-15" *ngIf="userIsAuthenticated">
                                 <div class="col-sm-12">
@@ -62,7 +61,7 @@
                                             <div class="panel-body">
                                                 <textarea class="form-control" name="comment" [(ngModel)]="comment" placeholder="write a comment..." rows="3"></textarea>
                                                 <br>
-                                                <button type="button" class="btn btn-info pull-right" (click)="onComment(post.id)">Post</button>
+                                                <button type="button" class="btn pull-right" (click)="onComment(post.id)" style="background-color: #4267b2;color:white">Post</button>
                                                 <div class="clearfix"></div>
                                             </div>
                                         </div>
@@ -70,7 +69,7 @@
                                 </div>
                             </div>
                         </div>
-                        <hr>
+
                     </div>
                 </div>
             </div>

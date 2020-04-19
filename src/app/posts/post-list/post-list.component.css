@@ -48,6 +48,7 @@ main {
     font-size: 25px;
     /* padding-right: 8px; */
     padding: 5px;
+    color: #4267b2;
 }
 
 .padding-15 {
@@ -61,4 +62,8 @@ main {
 
 .bg-white {
     background: white;
+}
+
+.mar-t-20 {
+    margin-top: 30px;
 }

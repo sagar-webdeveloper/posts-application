@@ -44,3 +44,12 @@ mat-password-strength .mat-progress-bar-fill::after {
 .mar-bt-20 {
     margin-bottom: 20px;
 }
+
+.card-design {
+    border: 1px solid #dddfe2;
+    border-radius: 3px;
+}
+
+.bg-white {
+    background: white;
+}

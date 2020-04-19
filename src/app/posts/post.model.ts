@@ -4,4 +4,6 @@ export interface Post {
   content: string;
   imagePath: string;
   creator: string;
+  fullname:string;
+  postType:string;
 }

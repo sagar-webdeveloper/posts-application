@@ -32,7 +32,10 @@ export class PostsService {
                 id: post._id,
                 imagePath: post.imagePath,
                 creator: post.creator,
-                comments:post.comments
+                comments:post.comments,
+                postBy:post.postBy,
+                postedTime:post.postedTime,
+                postType:post.postType
               };
             }),
             maxPosts: postData.maxPosts
@@ -59,14 +62,19 @@ export class PostsService {
       content: string;
       imagePath: string;
       creator: string;
+      fullname:string;
+      requestType:string;
+      postType:string
     }>(BACKEND_URL + id);
   }
 
-  addPost(title: string, content: string, image: File) {
+  addPost(title: string, content: string, image: File,fullname:string,postType:string) {
     const postData = new FormData();
     postData.append("title", title);
     postData.append("content", content);
     postData.append("image", image, title);
+    postData.append("fullname", fullname);
+    postData.append("postType",postType);
     this.http
       .post<{ message: string; post: Post }>(
         BACKEND_URL,
@@ -77,7 +85,7 @@ export class PostsService {
       });
   }
 
-  updatePost(id: string, title: string, content: string, image: File | string) {
+  updatePost(id: string, title: string, content: string, image: File | string, fullname:string,postType:string) {
     let postData: Post | FormData;
     if (typeof image === "object") {
       postData = new FormData();
@@ -85,13 +93,17 @@ export class PostsService {
       postData.append("title", title);
       postData.append("content", content);
       postData.append("image", image, title);
+      postData.append("fullname", fullname);
+      postData.append("postType",postType);
     } else {
       postData = {
         id: id,
         title: title,
         content: content,
         imagePath: image,
-        creator: null
+        creator: null,
+        fullname: fullname,
+        postType:postType
       };
     }
     this.http

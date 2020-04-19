@@ -1,16 +1,25 @@
 const Post = require("../models/post");
 
 exports.createPost = (req, res, next) => {
+
+    let today = new Date();
+    let date = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+    let time = today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
+    let dateTime = time + ' ' + date;
+
     const url = req.protocol + "://" + req.get("host");
     const post = new Post({
         title: req.body.title,
         content: req.body.content,
         imagePath: url + "/images/" + req.file.filename,
-        creator: req.userData.userId
+        creator: req.userData.userId,
+        postType: req.body.requestType,
+        postBy: req.body.fullname,
+        postedTime: dateTime
 
     });
-    post
-        .save()
+    console.log("posting data", post);
+    post.save()
         .then(createdPost => {
             res.status(201).json({
                 message: "Post added successfully",

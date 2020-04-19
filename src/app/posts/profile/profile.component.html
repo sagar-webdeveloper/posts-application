@@ -1,0 +1,90 @@
+<div class="container">
+    <mat-spinner *ngIf="isLoading"></mat-spinner>
+    <section class="my-col" *ngIf="!isLoading && userIsAuthenticated">
+        <div class="row">
+            <div class="col-sm-12 p-2 ml-3 card-design bg-white">
+                <div class="row">
+                    <div class="col-sm-2">
+                        <img src="../../../assets/profile.jpg" class="img-thumbnail mx-auto d-block img-fluid" alt="" />
+                    </div>
+                    <div class="col-sm-9">
+                        <h3>Welcome, <span style="color:#4267b2">{{userName}}</span></h3>
+                        <p>
+                            <span class="pr-5"><b>Share a Bit : </b><span>{{sharedList.length}}</span></span>
+                            <span><b>Raise a Request : </b><span>{{requestedList.length}}</span></span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-10">
+                <div class="row">
+                    <div class="col-sm-10 ml-auto mr-3 mar-t-20" *ngFor="let post of myPosts">
+                        <div class="card card-design">
+                            <div class="card-body">
+                                <h5><i class="fa fa-user cmt-user"></i> {{post.postBy}}</h5>
+                                <span class="text-muted pull-right">
+                                    <small class="text-muted">Posted @{{post.postedTime}}</small>
+                                </span>
+                                <h6 class="card-title">#{{post.postType}}</h6>
+                                <p class="card-text">{{ post.title }}</p>
+                                <span class="card-text">{{ post.content }}</span>
+                            </div>
+                            <img class="card-img-bottom" [src]="post.imagePath" alt="Card image" style="width:100%; height:auto;">
+
+                            <div>
+                                <span style="padding-left: 5px;"><i class="fa fa-comments"></i>  {{post.comments.length}} Comments</span>
+                                <span *ngIf="userIsAuthenticated && userId === post.creator">
+                                    <a mat-button color="primary" [routerLink]="['/edit', post.id]" class="pull-right">EDIT</a>
+                                    <button class="pull-right" mat-button color="warn" (click)="onDelete(post.id)">DELETE</button>
+                                </span>
+                            </div>
+
+
+                            <div class="row bootstrap snippets padding-15" *ngIf="userIsAuthenticated">
+                                <div class="col-sm-12">
+                                    <hr>
+                                    <ul class="media-list" *ngIf="post.comments.length>0">
+                                        <li class="media" *ngFor="let comment of post.comments">
+                                            <a href="#" class="pull-left">
+                                                <i class="fa fa-user cmt-user"></i>
+                                            </a>
+                                            <div class="media-body">
+                                                <span class="text-muted pull-right">
+                                                            <small class="text-muted">{{ comment.date}}</small>
+                                                        </span>
+                                                <strong class="text-success">@{{ comment.commentBy}}</strong>
+                                                <p>
+                                                    {{ comment.message}}.
+                                                </p>
+                                            </div>
+                                        </li>
+
+                                    </ul>
+                                    <div class="comment-wrapper">
+                                        <div class="panel panel-info">
+                                            <div class="panel-heading">
+                                                Comment panel
+                                            </div>
+                                            <div class="panel-body">
+                                                <textarea class="form-control" name="comment" [(ngModel)]="comment" placeholder="write a comment..." rows="3"></textarea>
+                                                <br>
+                                                <button type="button" class="btn pull-right" (click)="onComment(post.id)" style="background-color: #4267b2;color:white">Post</button>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="my-col">
+    </section>
+</div>
+
+<mat-paginator [length]="totalPosts" [pageSize]="postsPerPage" [pageSizeOptions]="pageSizeOptions" (page)="onChangedPage($event)" *ngIf="myPosts.length > 0"></mat-paginator>
+<p class="info-text mat-body-1" *ngIf="myPosts.length <= 0 && !isLoading">No posts added yet!</p>

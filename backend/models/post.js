@@ -6,8 +6,9 @@ const postSchema = mongoose.Schema({
     imagePath: { type: String, required: true },
     creator: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
     comments: [{ message: String, date: String, commentBy: String }],
-    contactDetails: { type: String },
-    postType: { type: String }
+    postType: { type: String, required: true },
+    postBy: { type: String, required: true },
+    postedTime: { type: String, required: true }
 });
 
 module.exports = mongoose.model("Post", postSchema);

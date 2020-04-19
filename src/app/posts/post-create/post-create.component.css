@@ -1,21 +1,30 @@
 mat-form-field,
 textarea {
-  width: 100%;
+    width: 100%;
 }
 
 mat-spinner {
-  margin: auto;
+    margin: auto;
 }
 
 input[type="file"] {
-  visibility: hidden;
+    visibility: hidden;
 }
 
 .image-preview {
-  height: 5rem;
-  margin: 1rem 0;
+    height: 5rem;
+    margin: 1rem 0;
 }
 
 .image-preview img {
-  height: 100%;
+    height: 100%;
+}
+
+.card-design {
+    border: 1px solid #dddfe2;
+    border-radius: 3px;
+}
+
+.bg-white {
+    background: white;
 }

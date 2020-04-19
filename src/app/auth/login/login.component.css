@@ -9,3 +9,12 @@ mat-spinner {
 .captchaStyle {
     margin-top: 20px;
 }
+
+.card-design {
+    border: 1px solid #dddfe2;
+    border-radius: 3px;
+}
+
+.bg-white {
+    background: white;
+}

@@ -30,6 +30,9 @@ export class PostListComponent implements OnInit, OnDestroy {
   userId: string;
   comment:any;
   userName:any;
+  requestedList:any=[];
+  sharedList:any=[];
+  myPosts:any=[];
   decodedToken:any;
   private postsSub: Subscription;
   private authStatusSub: Subscription;
@@ -55,6 +58,22 @@ export class PostListComponent implements OnInit, OnDestroy {
         this.isLoading = false;
         this.totalPosts = postData.postCount;
         this.posts = postData.posts;
+        for(var i=0;i<this.posts.length;i++){
+          if(this.userId==this.posts[i].creator){
+            this.myPosts.push(this.posts[i])
+          }
+        }
+        if(this.myPosts.length>0){
+          for(var i=0;i<this.myPosts.length;i++){
+            if(this.myPosts[i].postType == "Share a Bit"){
+              this.sharedList.push(this.myPosts[i]);
+            }else{
+              this.requestedList.push(this.myPosts[i]);
+            }
+          }
+        }
+
+        
       });
     this.userIsAuthenticated = this.authService.getIsAuth();
     this.authStatusSub = this.authService

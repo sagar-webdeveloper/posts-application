@@ -6,7 +6,7 @@ ul {
 
 a {
     text-decoration: none;
-    color: #495057;
+    color: white;
     font-size: 20px;
 }
 
@@ -16,4 +16,12 @@ ul {
 
 .spacer {
     flex: 1 1 auto;
+}
+
+.header-bg {
+    background-color: #4267b2;
+}
+
+.selected-btn {
+    color: #f4e2cb;
 }

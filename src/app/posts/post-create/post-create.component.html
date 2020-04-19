@@ -1,10 +1,26 @@
 <div class="container">
-    <h2 class="text-center p-3">Add / Edit Post</h2>
     <mat-spinner *ngIf="isLoading"></mat-spinner>
     <section class="my-col" *ngIf="!isLoading">
+        <div class="row">
+            <div class="col-sm-12 p-2 ml-3 card-design bg-white">
+                <h4 class="p-15 text-center" style="padding-top: 5px;">Due to COVID-19, situation calls for Statutory help, Contribute to the needy and raise request for your needs </h4>
+            </div>
+        </div>
         <div class="row text-center">
-            <div class="col-sm-4 p-4 my-3 border">
+            <div class="col-sm-4 p-4 my-3 card-design bg-white">
                 <form [formGroup]="form" (submit)="onSavePost()" *ngIf="!isLoading">
+
+                    <div class="form-group">
+                        <mat-form-field>
+                            <mat-label>Select Post Type</mat-label>
+                            <mat-select formControlName="postType">
+                                <mat-option *ngFor="let request of requestList" [value]="request">
+                                    {{request}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="form.get('postType').invalid">Please select Request Type</mat-error>
+                        </mat-form-field>
+                    </div>
                     <div class="form-group">
                         <mat-form-field>
                             <input matInput type="text" formControlName="title" placeholder="Post Title">
@@ -13,22 +29,22 @@
                     </div>
                     <div class="form-group">
                         <mat-form-field>
-                            <textarea matInput rows="4" formControlName="content" placeholder="Post Content"></textarea>
-                            <mat-error *ngIf="form.get('content').invalid">Please enter a post title.</mat-error>
+                            <textarea matInput rows="4" formControlName="content" placeholder="Post details with contact"></textarea>
+                            <mat-error *ngIf="form.get('content').invalid">Please enter details</mat-error>
                         </mat-form-field>
                     </div>
                     <div class="form-group">
                         <div>
-                            <button type="button" (click)="filePicker.click()">Pick Image</button>
+                            <button type="button" mat-raised-button (click)="filePicker.click()">Pick Image</button>
                             <input type="file" #filePicker (change)="onImagePicked($event)">
                         </div>
                     </div>
                     <div class="text-center">
-                        <button mat-raised-button color="accent" type="submit">Save Post</button>
+                        <button mat-raised-button type="submit" style="background-color:#4267b2;color:white">Save Post</button>
                     </div>
                 </form>
             </div>
-            <div class="col-sm-4 p-4 my-3 ml-3 mr-auto border" *ngIf="form.valid">
+            <div class="col-sm-4 p-4 my-3 ml-3 mr-auto card-design bg-white" *ngIf="form.valid">
                 <div class="card">
                     <h4 class="card-title">Post Preview</h4>
                     <div class="card-body">

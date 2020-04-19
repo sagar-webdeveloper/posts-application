@@ -1,7 +1,8 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
-import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { FormGroup, FormControl, Validators,FormBuilder } from "@angular/forms";
 import { ActivatedRoute, ParamMap } from "@angular/router";
 import { Subscription } from "rxjs";
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 import { PostsService } from "../posts.service";
 import { Post } from "../post.model";
@@ -20,6 +21,10 @@ export class PostCreateComponent implements OnInit, OnDestroy {
   isLoading = false;
   form: FormGroup;
   imagePreview: string;
+  userName:string;
+  requestList:string[]=["Share a Bit","Raise a Request"];
+
+
   private mode = "create";
   private postId: string;
   private authStatusSub: Subscription;
@@ -27,7 +32,8 @@ export class PostCreateComponent implements OnInit, OnDestroy {
   constructor(
     public postsService: PostsService,
     public route: ActivatedRoute,
-    private authService: AuthService
+    private authService: AuthService,
+    private formBuilder: FormBuilder
   ) {}
 
   ngOnInit() {
@@ -37,15 +43,13 @@ export class PostCreateComponent implements OnInit, OnDestroy {
         this.isLoading = false;
       });
     this.form = new FormGroup({
-      title: new FormControl(null, {
-        validators: [Validators.required, Validators.minLength(3)]
-      }),
+      postType: new FormControl(null, {validators: [Validators.required]}),
+      title: new FormControl(null, {validators: [Validators.required, Validators.minLength(3)]}),
       content: new FormControl(null, { validators: [Validators.required] }),
-      image: new FormControl(null, {
-        validators: [Validators.required],
-        asyncValidators: [mimeType]
-      })
+      image: new FormControl(null, {validators: [Validators.required],asyncValidators: [mimeType]}),
     });
+
+
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
       if (paramMap.has("postId")) {
         this.mode = "edit";
@@ -58,7 +62,9 @@ export class PostCreateComponent implements OnInit, OnDestroy {
             title: postData.title,
             content: postData.content,
             imagePath: postData.imagePath,
-            creator: postData.creator
+            creator: postData.creator,
+            fullname:postData.fullname,
+            postType:postData.postType
           };
           this.form.setValue({
             title: this.post.title,
@@ -71,6 +77,13 @@ export class PostCreateComponent implements OnInit, OnDestroy {
         this.postId = null;
       }
     });
+
+    const helper = new JwtHelperService();
+    let token = localStorage.getItem("token");
+   if(token!=null && token !='' && token !=undefined){
+    let decodedToken = helper.decodeToken(token);
+    this.userName = decodedToken.fullname;
+      }
   }
 
   onImagePicked(event: Event) {
@@ -93,14 +106,18 @@ export class PostCreateComponent implements OnInit, OnDestroy {
       this.postsService.addPost(
         this.form.value.title,
         this.form.value.content,
-        this.form.value.image
+        this.form.value.image,
+        this.userName,
+        this.form.value.postType
       );
     } else {
       this.postsService.updatePost(
         this.postId,
         this.form.value.title,
         this.form.value.content,
-        this.form.value.image
+        this.form.value.image,
+        this.userName,
+        this.form.value.postType
       );
     }
     this.form.reset();

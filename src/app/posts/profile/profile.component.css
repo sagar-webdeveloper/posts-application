@@ -1,0 +1,69 @@
+mat-spinner {
+    margin: auto;
+}
+
+mat-paginator {
+    margin-top: 1rem;
+}
+
+.info-text {
+    text-align: center;
+}
+
+.post-image {
+    width: 100%;
+}
+
+.post-image img {
+    width: 100%;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+}
+
+.img-slider {
+    margin-bottom: 30px;
+}
+
+main {
+    width: 95%;
+    margin: 1rem auto;
+}
+
+.comment-wrapper .panel-body {
+    max-height: 650px;
+    overflow: auto;
+}
+
+.comment-wrapper .media-list .media img {
+    width: 64px;
+    height: 64px;
+    border: 2px solid #e5e7e8;
+}
+
+.comment-wrapper .media-list .media {
+    border-bottom: 1px dashed #efefef;
+    margin-bottom: 25px;
+}
+
+.cmt-user {
+    font-size: 25px;
+    /* padding-right: 8px; */
+    padding: 5px;
+    color: #4267b2;
+}
+
+.padding-15 {
+    padding: 15px;
+}
+
+.card-design {
+    border: 1px solid #dddfe2;
+    border-radius: 3px;
+}
+
+.bg-white {
+    background: white;
+}
+
+.mar-t-20 {
+    margin-top: 30px;
+}
