@@ -12,6 +12,8 @@
         "multer": "^1.3.0",
         "request": "^2.88.2",
         "winston": "^3.2.1",
-        "winston-mongodb": "^5.0.1"
+        "winston-mongodb": "^5.0.1",
+        "helmet": "^3.22.0",
+        "express-sanitizer": "^1.0.5"
     }
 }

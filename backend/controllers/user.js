@@ -4,6 +4,9 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/user");
 const request = require("request");
 
+const MAX_LOGIN_ATTEMPTS = 5;
+const LOCK_TIME = 2 * 60 * 60 * 1000;
+
 exports.createUser = (req, res, next) => {
     bcrypt.hash(req.body.password, 10).then(hash => {
         const user = new User({
@@ -45,7 +48,7 @@ exports.userLogin = (req, res, next) => {
             console.log("1");
         }
         let fetchedUser;
-        User.findOne({ email: req.body.email })
+        User.findOne({ email: String(req.body.email) })
             .then(user => {
                 if (!user) {
                     return res.status(401).json({
@@ -57,6 +60,7 @@ exports.userLogin = (req, res, next) => {
             })
             .then(result => {
                 if (!result) {
+
                     return res.status(401).json({
                         message: "Auth failed"
                     })
