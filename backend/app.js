@@ -45,7 +45,19 @@ app.use((req, res, next) => {
     );
     next();
 });
+
 app.use(helmet());
+// Prevent opening page in frame or iframe to protect from clickjacking
+app.use(helmet.xframe());
+
+// Prevents browser from caching and storing page
+app.use(helmet.noCache());
+
+// Allow loading resources only from white-listed domains
+app.use(helmet.csp());
+
+// Allow communication only on HTTPS
+app.use(helmet.hsts());
 
 app.use((req, res, next) => {
     logger.error(req.body);
