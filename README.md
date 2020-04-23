@@ -1,27 +1,19 @@
-# MeanCourse
+Do Your Bit
+It is an Mean stack application, Developed in Angular, Node.js, epress and mongoDB
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.1.
+Do Your Bit is an online platform which aims to connect to the right people and help the needy people at this bad time, have following aims of the project
+•	Anyone who wants to share the stuff with needy people, they can post as ‘Share a Bit’ 
+•	Anyone who needs anything, they can raise a request via post.
 
-## Development server
 
+
+#Run thing application
+#front end
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Code scaffolding
+#banckend 
+npm run start:server
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
