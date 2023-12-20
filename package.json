@@ -26,7 +26,7 @@
         "@auth0/angular-jwt": "^4.0.0",
         "@ng-bootstrap/ng-bootstrap": "^6.0.2",
         "@ngmodule/material-carousel": "^0.6.0",
-        "bcrypt": "^4.0.1",
+        "bcrypt": "^5.0.1",
         "bcryptjs": "^2.4.3",
         "body-parser": "^1.19.0",
         "bootstrap": "^4.4.1",
