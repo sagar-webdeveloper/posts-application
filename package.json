@@ -49,7 +49,7 @@
         "rxjs": "6.5.4",
         "tslib": "^1.10.0",
         "winston": "^3.2.1",
-        "winston-mongodb": "^5.0.1",
+        "winston-mongodb": "^6.0.0",
         "zone.js": "~0.10.2"
     },
     "devDependencies": {
